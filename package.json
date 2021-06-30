@@ -1,0 +1,88 @@
+{
+  "private": true,
+  "scripts": {
+    "ui": "cross-env UMI_UI=1 umi dev",
+    "debuggbuild": "cross-env COMPRESS=none UMI_ENV=dev umi build",
+    "product": "cross-env UMI_ENV=product umi build",
+    "analyze": "cross-env ANALYZE=1 UMI_ENV=dev umi build",
+    "test": "umi test",
+    "lint": "eslint --ext .js src mock tests",
+    "precommit": "lint-staged",
+    "clone": "npm-run-all --serial clone:*",
+    "clone:md": "md child ",
+    "clone:sub-react": "cd child && git clone http://git.xxx.com/tanyunkai/sub-react.git",
+    "clone:sub-react-second": "cd child && git clone http://git.xxx.com/tanyunkai/sub-react-second.git",
+    "installAll": "npm-run-all --parallel installAll:*",
+    "installAll:sub-react": "cd child && cd sub-react  && npm i",
+    "installAll:sub-react-second": "cd child && cd sub-react-second  && npm i",
+    "checkout": "npm-run-all --serial checkout:*",
+    "checkout:sub-react": "cd child && cd sub-react && git checkout  develop ",
+    "checkout:sub-react-second": "cd child && cd sub-react-second && git checkout  develop",
+    "start": "npm-run-all --parallel start:*",
+    "start:sub-react": "cd child && cd sub-react && npm start",
+    "start:sub-react-second": "cd child && cd sub-react-second && npm start",
+    "start:main": " umi dev",
+    "build": "npm-run-all --serial build:*",
+    "build:main": "cross-env UMI_ENV=dev umi build",
+    "build:sub-react": "cd child && cd sub-react && npm run build",
+    "build:sub-react-second": "cd child && cd sub-react-second && npm run build",
+    "pull": "npm-run-all --parallel pull:*",
+    "pull:main": "git pull",
+    "pull:sub-react": "cd child && cd sub-react && git pull",
+    "pull:sub-react-second": "cd child && cd sub-react-second && git pull"
+  },
+  "dependencies": {
+    "@babel/polyfill": "7.11.5",
+    "antd": "4.5.2",
+    "babel-plugin-transform-remove-console": "6.9.4",
+    "classnames": "2.2.6",
+    "cross-env": "7.0.2",
+    "echarts": "4.9.0",
+    "echarts-for-react": "2.0.16",
+    "md5": "2.2.1",
+    "npm-run-all": "^4.1.5",
+    "qiankun": "^2.4.2",
+    "qs": "6.9.4",
+    "react": "16.13.0",
+    "react-dom": "16.13.0",
+    "umi": "3.2.22",
+    "umi-request": "1.3.4"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "8.3.5",
+    "@commitlint/config-conventional": "8.3.4",
+    "@types/echarts": "4.6.4",
+    "@umijs/plugin-qiankun": "^2.25.0",
+    "@umijs/preset-react": "1.6.7",
+    "babel-eslint": "10.1.0",
+    "eslint": "7.9.0",
+    "eslint-config-umi": "1.6.0",
+    "eslint-plugin-flowtype": "5.2.0",
+    "eslint-plugin-import": "2.22.0",
+    "eslint-plugin-jsx-a11y": "6.3.1",
+    "eslint-plugin-react": "7.21.1",
+    "eslint-plugin-react-hooks": "4.1.2",
+    "husky": "4.2.5",
+    "lint-staged": "10.4.0",
+    "prettier": "2.1.2",
+    "react-test-renderer": "16.13.1"
+  },
+  "lint-staged": {
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  }
+}
